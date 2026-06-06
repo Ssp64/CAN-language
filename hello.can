@@ -1,0 +1,180 @@
+^ CAN Language example program
+...
+Run this file with:
+python canlang.py run hello.can
+...
+
+spill("=== CAN Language Examples ===");
+
+^ Variables and types
+spill("");
+spill("--- Variables and Types ---");
+
+think yap isReady = fr;
+think etco age = 19;
+think etco pi = 3.14;
+think Ower name = "Aaren";
+think nada empty = nada;
+rack scores = [72, 85, 91];
+
+spill("yap:", isReady);
+spill("etco:", age, pi);
+spill("Ower:", name);
+spill("nada:", empty);
+spill("rack:", scores);
+
+^ Arithmetic, assignment, comparison, and logical operators
+spill("");
+spill("--- Operators ---");
+
+think etco result = 10 + 5 * 2;
+result += 3;
+
+spill("Result:", result);
+spill("Power:", 2 ** 5);
+spill("Comparison:", result > 20);
+spill("Logical:", isReady && result == 23);
+spill("Short circuit:", cap && (1 / 0 == 0));
+
+^ Conditions
+spill("");
+spill("--- Conditions ---");
+
+no cap (age >= 18) {
+    spill(name, "is an adult");
+}
+lowkey (age == 17) {
+    spill(name, "is almost an adult");
+}
+bet {
+    spill(name, "is under 18");
+}
+
+^ While loop
+spill("");
+spill("--- ghost Loop ---");
+
+think etco countdown = 3;
+ghost (countdown > 0) {
+    spill(countdown);
+    countdown -= 1;
+}
+
+^ Do-while loop
+spill("");
+spill("--- grind Loop ---");
+
+think etco attempts = 0;
+grind {
+    attempts += 1;
+    spill("Attempt", attempts);
+} ghost (attempts < 2);
+
+^ For loop with skip and drop
+spill("");
+spill("--- slide Loop ---");
+
+slide (i = 0; i < 10; i += 1) {
+    no cap (i == 2) {
+        skip;
+    }
+    no cap (i == 5) {
+        drop;
+    }
+    spill("i =", i);
+}
+
+^ Arrays and foreach
+spill("");
+spill("--- Arrays ---");
+
+scores.push(100);
+scores[0] = 75;
+
+spill("Scores:", scores);
+spill("Length:", scores.len());
+spill("First:", scores.first());
+spill("Last:", scores.last());
+spill("Contains 85:", scores.contains(85));
+spill("Slice:", scores.slice(1, 3));
+spill("Joined:", scores.join(", "));
+
+foreach (score in scores) {
+    spill("Score:", score);
+}
+
+rack generated = range(1, 6);
+rack filled = newRack(3, "CAN");
+spill("Range:", generated);
+spill("Filled rack:", filled);
+
+^ Strings
+spill("");
+spill("--- Strings ---");
+
+think Ower message = "  hello can  ";
+
+spill("Original:", message);
+spill("Trimmed:", message.trim());
+spill("Upper:", message.trim().upper());
+spill("Contains CAN:", message.upper().contains("CAN"));
+spill("Replace:", message.trim().replace("can", "world"));
+spill("Split:", "red,green,blue".split(","));
+spill("Characters:", chars("CAN"));
+
+^ Functions
+spill("");
+spill("--- Functions ---");
+
+vibe etco add(etco a, etco b) {
+    bounce a + b;
+}
+
+vibe etco factorial(etco value) {
+    no cap (value <= 1) {
+        bounce 1;
+    }
+    bounce value * factorial(value - 1);
+}
+
+vibe nada showAll(Ower* values) {
+    foreach (value in values) {
+        spill(value);
+    }
+}
+
+spill("4 + 6 =", add(4, 6));
+spill("5! =", factorial(5));
+showAll("one", "two", "three");
+
+^ Conversion, type checks, and math built-ins
+spill("");
+spill("--- Built-ins ---");
+
+spill("toEtco:", toEtco("42") + 8);
+spill("toOwer:", "Value = " + toOwer(25));
+spill("typeOf scores:", typeOf(scores));
+spill("isRack scores:", isRack(scores));
+spill("sqrt 81:", sqrt(81));
+spill("max:", max(3, 9, 5));
+
+^ Error handling
+spill("");
+spill("--- Error Handling ---");
+
+shield {
+    yeet "This is a handled error";
+}
+miss (error) {
+    spill("Caught:", error);
+}
+
+shield {
+    spill(log(0));
+}
+miss (error) {
+    spill("Caught runtime error:", error);
+}
+
+spill("");
+spill("=== Examples Complete ===");
